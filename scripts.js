@@ -22,6 +22,27 @@ function alertar(event){
     //  if(resultado == 0){
     //      alert("este número é par!");
     //  }
+     
+    const url = `https://viacep.com.br/ws/${cep.value}/json`;
+
+    fetch(url)
+    .then(function(resposta){
+        return resposta.json();
+    })
+    .then(
+        function(dadosDoEndereco){
+            logradouro.value = dadosDoEndereco.logradouro;
+            bairro.value = dadosDoEndereco.bairro;
+            cidade.value = dadosDoEndereco.localidade;
+            estado.value = dadosDoEndereco.uf;
+            complemento.value = dadosDoEndereco.complemento;
+        }
+    )
+    .catch(
+        function(e){
+        alert(e.message());
+    });
+       
     saida.innerText = "Nome: " + nome.value +
           "\n Email: " + email.value +
           "\n Telefone: " + telefone.value +
